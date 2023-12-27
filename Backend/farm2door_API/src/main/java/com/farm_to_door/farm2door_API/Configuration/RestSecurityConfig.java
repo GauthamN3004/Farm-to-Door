@@ -22,8 +22,15 @@ public class RestSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests( configurer -> 
             configurer
-                .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/farmer/**").hasAnyRole("FARMER", "ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/api/farmer/**").hasAnyRole("FARMER", "ADMIN")
+                .requestMatchers(HttpMethod.POST, "/api/customer/**").hasAnyRole("CUSTOMER", "ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/api/customer/**").hasAnyRole("CUSTOMER", "ADMIN")
         );
+        //.hasAnyRole("CUSTOMER", "FARMER", "ADMIN")
+        // .hasAnyRole("CUSTOMER", "ADMIN")
         
         // use HTTP Basic Authentication
         http.httpBasic(Customizer.withDefaults());

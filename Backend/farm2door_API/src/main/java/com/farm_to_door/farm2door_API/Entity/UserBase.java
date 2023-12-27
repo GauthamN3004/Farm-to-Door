@@ -1,20 +1,11 @@
 package com.farm_to_door.farm2door_API.Entity;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.MappedSuperclass;
 
-@Entity
-@Table(name = "users")
-public class Users {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Long userId;
+@MappedSuperclass
+public class UserBase {
 
     @Column(name = "username", unique = true)
     private String username;
@@ -43,16 +34,12 @@ public class Users {
     @Column(name = "enabled")
     private boolean enabled;
 
-    @Column(name = "role")
-    private String role;
-
-    // Constructors, getters, setters, and toString
-
-    public Users() {
+    // Constructors
+    public UserBase() {
     }
 
-    public Users(String username, String firstname, String lastname, String password,
-                 String email, String address, String city, String phno, boolean enabled, String role) {
+    public UserBase(String username, String firstname, String lastname, String password, String email,
+                String address, String city, String phno, boolean enabled) {
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -62,19 +49,9 @@ public class Users {
         this.city = city;
         this.phno = phno;
         this.enabled = enabled;
-        this.role = role;
     }
 
-    // Getters and setters
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
+    // Getters and Setters for common fields
     public String getUsername() {
         return username;
     }
@@ -145,30 +122,5 @@ public class Users {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    @Override
-    public String toString() {
-        return "Users{" +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                ", city='" + city + '\'' +
-                ", phno='" + phno + '\'' +
-                ", enabled=" + enabled +
-                ", role='" + role + '\'' +
-                '}';
     }
 }
