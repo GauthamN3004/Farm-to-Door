@@ -2,6 +2,7 @@ package com.farm_to_door.farm2door_API.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import com.farm_to_door.farm2door_API.Service.UserService;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin
 public class LoginController {
 
     private UserService userService;
