@@ -1,0 +1,38 @@
+.myClass {
+    align-items: center;
+    text-align: center;
+    padding: 100px;
+}
+
+.listing {
+    padding: 100px;
+}
+
+.listing ul {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.listing ul li {
+    list-style:upper-roman;
+}
+
+.green {
+    color: green;
+    background-color: rgb(235, 235, 235);
+}
+
+.white {
+    color: rgb(235, 235, 235);
+    background-color: green;
+}
+
+@media (max-width: 600px) {
+    .myClass {
+        padding: 30px;
+    }
+
+    .listing {
+        padding: 30px;
+    }
+}

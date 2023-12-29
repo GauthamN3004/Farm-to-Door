@@ -38,7 +38,7 @@ public class UserService {
         String username = registrationDTO.getUsername();
 
         if(userRepository.findByUsername(username) != null){
-            return ResponseEntity.badRequest().body("Username already exists");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Username already exists");
         }
         
         if(registrationDTO.getUserType().equals("FARMER")){
