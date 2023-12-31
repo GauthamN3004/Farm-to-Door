@@ -43,8 +43,6 @@ function Register() {
             );
 
             if(res.status == 200){
-                console.log("already here");
-                console.log(res);
                 toast.success(res.data);
                 setTimeout(() => {
                     navigate("/login");

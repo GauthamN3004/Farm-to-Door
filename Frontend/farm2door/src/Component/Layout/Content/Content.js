@@ -3,7 +3,6 @@ import "./Content.css"
 
 
 function Content (props) {
-    console.log(props);
     const className = "myClass " + props.className;
 
     return <div className={className}>

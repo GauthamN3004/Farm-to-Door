@@ -32,6 +32,7 @@ public class RestSecurityConfig {
                 .requestMatchers(HttpMethod.DELETE, "/api/farmer/**").hasAnyRole("FARMER", "ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/customer/**").hasAnyRole("CUSTOMER", "ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/api/customer/**").hasAnyRole("CUSTOMER", "ADMIN")
+                .requestMatchers(HttpMethod.POST, "/api/files/**").permitAll()
         );
         //.hasAnyRole("CUSTOMER", "FARMER", "ADMIN")
         // .hasAnyRole("CUSTOMER", "ADMIN")
