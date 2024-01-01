@@ -1,0 +1,31 @@
+.Form{
+    align-items: center;
+    margin: auto;
+    border: none;
+    background-color: green;
+    color: white;
+    border-radius: 10px;
+    padding: 1rem;   
+    box-shadow: 10px 10px 5px rgba(0,0,0,0.2);
+    width: 400px;
+}
+
+.Form h2{
+    text-align: center;
+}
+
+.form-group {
+    padding-bottom: 20px;
+}
+
+form button {
+    width: 100%;
+}
+
+
+@media (max-width: 800px) {
+    .Form {
+        margin-top: 10vh;
+        width: 95%;
+    }
+}

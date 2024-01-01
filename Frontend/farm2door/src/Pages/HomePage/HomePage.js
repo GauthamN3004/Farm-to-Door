@@ -1,8 +1,10 @@
 import Layout from "../../Component/Layout/Layout";
 import Content from "../../Component/Layout/Content/Content";
 import Content2 from "../../Component/Layout/Content/Content2";
+import { useAuth } from "../../Context/AuthContext";
 
 function HomePage(){
+    const {isLoggedIn, userData, login, logout} = useAuth();
     const commitment = [
         {'title': 'Quality Assurance', 'content':'We work closely with local farmers who share our commitment to sustainable and ethical farming practices. Our team ensures that every product meets our stringent quality standards.'},
         {'title':'Locally Sourced', 'content': 'By choosing Farm2Door, you support local agriculture and communities. Our produce is sourced from nearby farms, reducing the carbon footprint and promoting regional economic growth.'},

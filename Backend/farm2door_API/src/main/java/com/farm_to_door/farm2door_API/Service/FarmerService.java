@@ -75,16 +75,6 @@ public class FarmerService {
         }
     }
 
-    public ResponseEntity<?> getFarmerHarvest(long farmerId){
-        Farmer farmer = farmerRepository.getFarmerInfo(farmerId);
-        if(farmer == null){
-            return ResponseEntity.badRequest().body("Farmer not found. ID: " + farmerId);
-        }
-        System.out.println(farmer);
-        List<Harvest> farmerHarvest = harvestRepository.getFarmerHarvests(farmerId);
-        return ResponseEntity.ok(farmerHarvest);
-    }
-
 
     @Transactional
     public ResponseEntity<?> deleteHarvest(long farmerId, long harvestId){

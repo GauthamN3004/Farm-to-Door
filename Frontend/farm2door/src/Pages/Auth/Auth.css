@@ -1,11 +1,12 @@
 .authForm{
     align-items: center;
     margin: auto;
-    border: 5px solid rgb(235,235,235);
+    border: none;
     background-color: green;
     color: white;
     border-radius: 10px;
     padding: 1rem;   
+    box-shadow: 10px 10px 5px rgba(0,0,0,0.2);
 }
 
 .authForm h2{
@@ -36,18 +37,18 @@ form button {
 
     .loginForm {
         margin-top: 10vh;
-        width: 100%;
+        width: 95%;
     }
 }
 
 @media (max-width: 600px) {
     .registerForm{
         margin-top: 10vh;
-        width: 100%;
+        width: 95%;
     }
 
     .loginForm {
         margin-top: 10vh;
-        width: 100%;
+        width: 95%;
     }
 }

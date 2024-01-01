@@ -1,12 +1,22 @@
 import React, { useState } from 'react';
-import "./Header.css"
+import "./UserHeader.css"
 import { Link, NavLink } from "react-router-dom";
 import imageLogo from "./logo.png";
+import { useAuth } from '../../../Context/AuthContext';
+import { useNavigate } from "react-router-dom";
 
-function Header() {
+function UserHeader() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const {isLoggedIn, userData, login, logout} = useAuth();
 
-    function handleClick() {
+    const navigate = useNavigate();
+
+    function handleLogout(){
+        logout();
+        navigate("/");
+    }
+
+    function handleNavToggle() {
         setMenuOpen(!menuOpen);
     }
 
@@ -14,27 +24,27 @@ function Header() {
         <>
             <nav className="navBar">
                 <div className="brandLogo">
-                <Link to="/">
+                <Link to="/user/farmer/my-harvest">
                     <img src={imageLogo} height={80} alt="Logo"></img>
                 </Link>
                 </div>
-                <div className="toggleButton" onClick={() => handleClick()}>
+                <div className="toggleButton" onClick={() => handleNavToggle()}>
                 <span className="bar"></span>
                 <span className="bar"></span>
                 <span className="bar"></span>
                 </div>
                 <div className="navBarLinks">
                 <ul className={menuOpen ? "open" : ""}>
-                    <li>
+                    {/* <li>
                     <NavLink to="/about">ABOUT</NavLink>
-                    </li>
-                    <li>
+                    </li> */}
+                    {/* <li>
                     <NavLink to="/login">
                         <span className="glyphicon glyphicon-log-in"></span> LOGIN
                     </NavLink>
-                    </li>
+                    </li> */}
                     <li>
-                    <NavLink to="/register">REGISTER</NavLink>
+                    <NavLink to="/" onClick={handleLogout}>LOGOUT</NavLink>
                     </li>
                 </ul>
                 </div>
@@ -43,4 +53,4 @@ function Header() {
     )
 }
 
-export default Header;
+export default UserHeader;

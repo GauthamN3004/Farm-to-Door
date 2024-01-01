@@ -2,12 +2,14 @@ package com.farm_to_door.farm2door_API.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.farm_to_door.farm2door_API.DTO.HarvestDTO;
@@ -22,6 +24,7 @@ import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/api/farmer")
+@CrossOrigin
 public class FarmerController {
 
     private FarmerService farmerService;
@@ -45,9 +48,20 @@ public class FarmerController {
     }
 
     @GetMapping("/{farmerId}/harvest")
-    public ResponseEntity<?> getFarmerHarvest(@PathVariable Long farmerId){
-        try{
-            return farmerService.getFarmerHarvest(farmerId);
+    public ResponseEntity<?> getFarmerHarvestPaginated(
+        @PathVariable Long farmerId,
+        @RequestParam(name = "page", required = false) Integer page,
+        @RequestParam(name = "pageSize", required = false) Integer pageSize
+    ){
+        if(page == null || pageSize == null){
+            try{
+                return harvestService.getFarmerHarvest(farmerId);
+            } catch(Exception e){
+                return ResponseEntity.badRequest().body(e);
+            }
+        }
+        try {
+            return harvestService.getFarmerHarvestsPaginated(farmerId, page, pageSize);
         } catch(Exception e){
             return ResponseEntity.badRequest().body(e);
         }

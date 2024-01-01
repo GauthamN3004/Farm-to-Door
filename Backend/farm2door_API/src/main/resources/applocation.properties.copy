@@ -5,7 +5,3 @@ spring.datasource.password=password
 
 
 logging.level.root=INFO
-
-
-aws.s3.access.key=AKIAR2IXM4FMW5YYIROC
-aws.s3.secret.key=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

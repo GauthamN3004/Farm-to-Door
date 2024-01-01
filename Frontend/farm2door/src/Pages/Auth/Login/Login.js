@@ -4,11 +4,12 @@ import "../Auth.css"
 import axios from "axios";
 import toast from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../Context/AuthContext";
 
 function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-
+    const {isLoggedIn, userData, login, logout} = useAuth();
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
@@ -29,9 +30,12 @@ function Login() {
             );
 
             if(res.status == 200){
-                toast.success(res.data.userId + " " + res.data.username + "Logged In");
+                const data = {...res.data, raw_password: password};
+                login(data);
+                toast.success("Welcome back " + data.firstname + " !");
+                localStorage.setItem('auth', JSON.stringify(data));
                 setTimeout(() => {
-                    navigate("/");
+                    navigate("/dashboard");
                 }, 10);
             }
             else if (res.status <= 450) {
