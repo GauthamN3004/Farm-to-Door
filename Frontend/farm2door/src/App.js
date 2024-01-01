@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -9,10 +9,9 @@ import PageNotFound from './Pages/PageNotFound/PageNotFound';
 import Register from './Pages/Auth/Register/Register';
 import Login from './Pages/Auth/Login/Login';
 import { AuthProvider } from './Context/AuthContext';
-import Dashboard from './Pages/User/Dashboard/Dashboard';
-import PrivateRoute from './Routes/PrivateRoute';
 import ImageUpload from './Pages/Auth/ImageUpload/ImageUpload';
-import FarmerAddHarvest from './Pages/User/FarmerAddHarvest/FarmerAddHarvest';
+import MyHarvest from './Pages/User/Farmer/MyHarvest/MyHarvest';
+import AddHarvest from './Pages/User/Farmer/AddHarvest/AddHarvest';
 
 function App() {
   return (
@@ -25,8 +24,10 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/upload" element={<ImageUpload />} />
           {/* <Route path="/user/*" element={<PrivateRoute />} > */}
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/add-harvest" element={<FarmerAddHarvest />} />
+          <Route path="/user/farmer/" element={<Outlet />} >
+              <Route path="my-harvest" element={<MyHarvest />}/>
+              <Route path="add-harvest" element={<AddHarvest />} />
+          </Route>
           {/* </Route> */}
           <Route path="*" element={<PageNotFound />} />
         </Routes>

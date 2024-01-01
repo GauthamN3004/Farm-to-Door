@@ -37,6 +37,19 @@ public class HarvestRepository implements HarvestDAO{
     }
 
     @Override
+    public List<Harvest> getFarmerHarvestsPaginated(Long farmerId, int page, int pageSize) {
+        int firstResult = (page - 1) * pageSize;
+        TypedQuery<Harvest> query = entityManager.createQuery(
+                "SELECT h FROM Harvest h WHERE h.active = true AND h.farmer.farmerId = :farmerId ORDER BY h.harvestDate DESC, h.harvestId DESC",
+                Harvest.class
+        );
+        query.setParameter("farmerId", farmerId);
+        query.setFirstResult(firstResult);
+        query.setMaxResults(pageSize);
+        return query.getResultList();
+    }    
+
+    @Override
     public Harvest getHarvestById(Long harvest_id) {
         return entityManager.find(Harvest.class, harvest_id);
     }
@@ -44,5 +57,6 @@ public class HarvestRepository implements HarvestDAO{
     @Override
     public void updateHarvestInfo(Harvest harvest) {
         entityManager.merge(harvest);
-    }    
+    }
+
 } 

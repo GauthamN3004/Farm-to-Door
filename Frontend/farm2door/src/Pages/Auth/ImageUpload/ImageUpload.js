@@ -13,7 +13,6 @@ function ImageUpload() {
         const renamedFile = new File([file], 'newFileName.jpg', { type: file.type });
         const formData = new FormData();
         formData.append('file', renamedFile);
-        console.log(formData);
         axios.post('http://localhost:8080/api/files/upload', formData)
         .then(response => {
             console.log('File uploaded successfully:', response.data);

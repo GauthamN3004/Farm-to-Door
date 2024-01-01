@@ -3,17 +3,23 @@ import { createContext, useEffect, useContext, useState } from 'react';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setLoggedIn] = useState(false);
-  const [userData, setUserData] = useState(null);
+  // const [isLoggedIn, setLoggedIn] = useState(false);
+  // const [userData, setUserData] = useState(null);
 
-  useEffect(() => {
-      const data = localStorage.getItem('auth');
-      if(data){
-          const parseData = JSON.parse(data);
-          setLoggedIn(true);
-          setUserData(parseData);
-      }
-  }, [])
+  // useEffect(() => {
+  //   const data = localStorage.getItem('auth');
+  //   if(data){
+  //       const parseData = JSON.parse(data);
+  //       setLoggedIn(true);
+  //       setUserData(parseData);
+  //   }
+  // }, [])
+
+  const storedUserData = localStorage.getItem('auth');
+  const initialUserData = storedUserData ? JSON.parse(storedUserData) : null;
+
+  const [isLoggedIn, setLoggedIn] = useState(Boolean(initialUserData));
+  const [userData, setUserData] = useState(initialUserData);
 
   const login = (data) => {
     setLoggedIn(true);
@@ -38,5 +44,5 @@ export const useAuth = () => {
   if (!context) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
-  return context;
+  return context; 
 };

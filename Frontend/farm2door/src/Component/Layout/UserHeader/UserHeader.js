@@ -24,7 +24,7 @@ function UserHeader() {
         <>
             <nav className="navBar">
                 <div className="brandLogo">
-                <Link to="/dashboard">
+                <Link to="/user/farmer/my-harvest">
                     <img src={imageLogo} height={80} alt="Logo"></img>
                 </Link>
                 </div>

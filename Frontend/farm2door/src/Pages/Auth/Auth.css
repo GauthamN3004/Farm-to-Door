@@ -37,18 +37,18 @@ form button {
 
     .loginForm {
         margin-top: 10vh;
-        width: 100%;
+        width: 95%;
     }
 }
 
 @media (max-width: 600px) {
     .registerForm{
         margin-top: 10vh;
-        width: 100%;
+        width: 95%;
     }
 
     .loginForm {
         margin-top: 10vh;
-        width: 100%;
+        width: 95%;
     }
 }

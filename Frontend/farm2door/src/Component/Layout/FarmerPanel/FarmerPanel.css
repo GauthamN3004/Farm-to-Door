@@ -1,0 +1,19 @@
+.list-group li{
+    color: green;
+}
+
+.myActive {
+    background-color: green; /* Your desired background color */
+    color: white !important;
+}
+
+
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+.list-group{
+    border-radius: 10px !important;
+}
