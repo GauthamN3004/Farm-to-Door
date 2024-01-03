@@ -47,7 +47,19 @@ public class HarvestRepository implements HarvestDAO{
         query.setFirstResult(firstResult);
         query.setMaxResults(pageSize);
         return query.getResultList();
-    }    
+    }
+
+    @Override
+    public List<Harvest> getAllHarvestsPaginated(int page, int pageSize) {
+        int firstResult = (page - 1) * pageSize;
+        TypedQuery<Harvest> query = entityManager.createQuery(
+                "SELECT h FROM Harvest h WHERE h.active = true and h.expiryDate > CURRENT_DATE ORDER BY h.harvestId DESC",
+                Harvest.class
+        );
+        query.setFirstResult(firstResult);
+        query.setMaxResults(pageSize);
+        return query.getResultList();
+    }   
 
     @Override
     public Harvest getHarvestById(Long harvest_id) {

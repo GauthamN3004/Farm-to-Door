@@ -2,30 +2,45 @@ package com.farm_to_door.farm2door_API.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.farm_to_door.farm2door_API.DTO.CartDTO;
 import com.farm_to_door.farm2door_API.Service.CustomerService;
+import com.farm_to_door.farm2door_API.Service.HarvestService;
 
 @RestController
 @RequestMapping("/api/customer")
+@CrossOrigin
 public class CustomerController {
     private CustomerService customerService;
+    private HarvestService harvestService;
 
     @Autowired
-    public CustomerController(CustomerService theCustomerService){
+    public CustomerController(CustomerService theCustomerService, HarvestService theHarvestService){
         this.customerService = theCustomerService;
+        this.harvestService = theHarvestService;
     }
 
     @GetMapping("/{customerId}")
     public ResponseEntity<?> getCustomerInfo(@PathVariable long customerId){
         return customerService.getCustomerInfo(customerId);
+    }
+
+    @GetMapping("/{customerId}/shop")
+    public ResponseEntity<?> getAllHarvest(
+        @PathVariable long customerId,
+        @RequestParam(name = "page", required = false) Integer page,
+        @RequestParam(name = "pageSize", required = false) Integer pageSize
+    ){
+        return harvestService.getAllHarvestsPaginated(page, pageSize);
     }
 
     @GetMapping("/{customerId}/cart")

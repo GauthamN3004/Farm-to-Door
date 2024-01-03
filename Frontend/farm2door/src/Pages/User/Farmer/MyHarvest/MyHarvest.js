@@ -12,10 +12,6 @@ function MyHarvest() {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
     const [harvests, setHarvests] = useState([]);
-    // const authHeader = {
-    //     username: userData.username,
-    //     password: userData.raw_password,
-    // };
 
     const fetchHarvests = async (pageNumber) => {
         try {
@@ -72,7 +68,7 @@ function MyHarvest() {
                         <div className="row myHarvest">
                             {harvests.map((harvestData) => (
                                 <div className="col-md-4">
-                                    <HarvestCard harvestData={harvestData} deleteHarvest={deleteHarvest}/>
+                                    <HarvestCard harvestData={harvestData} userRole={userData.role} eventHandle={deleteHarvest}/>
                             </div>
                             ))}
                         </div>

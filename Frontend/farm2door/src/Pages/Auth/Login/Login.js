@@ -35,7 +35,15 @@ function Login() {
                 toast.success("Welcome back " + data.firstname + " !");
                 localStorage.setItem('auth', JSON.stringify(data));
                 setTimeout(() => {
-                    navigate("/dashboard");
+                    if(data.role == "ROLE_CUSTOMER"){
+                        navigate("/customer/shop");
+                    }
+                    else if(data.role == "ROLE_FARMER"){
+                        navigate("/farmer/my-harvest");
+                    }
+                    else{
+                        navigate("/pageNotFound")
+                    }
                 }, 10);
             }
             else if (res.status <= 450) {

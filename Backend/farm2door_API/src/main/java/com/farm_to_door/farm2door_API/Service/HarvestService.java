@@ -42,4 +42,13 @@ public class HarvestService {
         return ResponseEntity.ok(farmerHarvest);
     }
 
+    public ResponseEntity<?> getAllHarvestsPaginated(int page, int pageSize){
+        try{
+            List<Harvest> farmerHarvestPaginated = harvestRepository.getAllHarvestsPaginated(page, pageSize);
+            return ResponseEntity.ok(farmerHarvestPaginated);
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+    }
+
 }
