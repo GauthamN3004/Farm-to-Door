@@ -1,0 +1,19 @@
+.card-img-top{
+    height:300px
+}
+
+.card{
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.modalForm{
+    width: 100px;
+    padding: 3px;
+}
+
+a{
+    color: rgb(41, 132, 144);
+    text-decoration: underline;
+}

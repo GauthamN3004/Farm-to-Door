@@ -13,6 +13,7 @@ import ImageUpload from './Pages/Auth/ImageUpload/ImageUpload';
 import MyHarvest from './Pages/User/Farmer/MyHarvest/MyHarvest';
 import AddHarvest from './Pages/User/Farmer/AddHarvest/AddHarvest';
 import Shop from './Pages/User/Customer/Shop/Shop';
+import Cart from './Pages/User/Customer/Cart/Cart';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           </Route>
           <Route path="/customer/" element={<Outlet />} >
               <Route path="shop" element={<Shop />}/>
+              <Route path="cart" element={<Cart />}/>
           </Route>
           {/* </Route> */}
           <Route path="*" element={<PageNotFound />} />

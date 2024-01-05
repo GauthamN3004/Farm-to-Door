@@ -9,15 +9,6 @@ function HarvestCard ({harvestData, userRole, eventHandle}) {
     const [isCartModalOpen, setCartModalOpen] = useState(false);
     const [cartQuantityText, setCartQuantityText] = useState(harvestData.smallestUnitSize);
     const [cartQuantity, setCartQuantity] = useState(harvestData.smallestUnitSize);
-    const [cropName, setCropName] = useState(harvestData.cropName);
-    const [harvestDate, setHarvestDate] = useState(new Date(harvestData.harvestDate).toISOString().substring(0, 10));
-    const [expiryDate, setExpiryDate] = useState(new Date(harvestData.expiryDate).toISOString().substring(0, 10));
-    const [quantity, setQuantity] = useState(harvestData.quantity);
-    const [unit, setUnit] = useState(harvestData.units);
-    const [price, setPrice] = useState(harvestData.pricePerQuantity);
-    const [smallestUnitSize, setSmallestUnitSize] = useState(harvestData.smallestUnitSize);
-    const [file, setFile] = useState(null);
-    const [imageUrl, setImageUrl] = useState(null);
     
 
     const showDeleteModal = () => {

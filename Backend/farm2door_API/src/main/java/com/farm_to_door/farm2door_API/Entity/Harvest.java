@@ -26,7 +26,7 @@ public class Harvest {
     private String cropName;
 
     @ManyToOne
-    @JsonIgnore
+    // @JsonIgnore
     @JoinColumn(name = "farmer_id", nullable = false)
     private Farmer farmer;
 

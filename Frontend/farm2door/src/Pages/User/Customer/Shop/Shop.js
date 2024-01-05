@@ -80,14 +80,19 @@ function Shop() {
                         <CustomerPanel activeTab={"shop"} />
                     </div>
                     <div className="col-sm-9">
-                        <div>
-                            <div className="row myHarvest">
-                                {harvests.map((harvestData) => (
-                                    <div className="col-md-4">
-                                        <HarvestCard harvestData={harvestData} userRole={userData.role} eventHandle={addToCart}/>
+                        <div className="row myHarvest">
+                            {harvests.map((harvestData) => (
+                                <div className="col-md-4">
+                                    <HarvestCard harvestData={harvestData} userRole={userData.role} eventHandle={addToCart}/>
                                 </div>
-                                ))}
-                            </div>
+                            ))}
+                        </div>
+                        <div className="loaddiv">{(loading) ? <button class="btn btn-success" type="button" disabled>
+                                <span class="spinner-border spinner-border-sm " role="status" aria-hidden="true"></span>
+                                &nbsp; LOADING...
+                            </button> :
+                            <button className="btn btn-success" onClick={handleLoadMore}>LOAD MORE</button>
+                        }
                         </div>
                     </div>
                 </div>
