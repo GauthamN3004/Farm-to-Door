@@ -16,6 +16,7 @@ import com.farm_to_door.farm2door_API.DTO.HarvestDTO;
 import com.farm_to_door.farm2door_API.Entity.Harvest;
 import com.farm_to_door.farm2door_API.Service.FarmerService;
 import com.farm_to_door.farm2door_API.Service.HarvestService;
+import com.farm_to_door.farm2door_API.Service.OrderService;
 
 import java.util.List;
 
@@ -29,12 +30,14 @@ public class FarmerController {
 
     private FarmerService farmerService;
     private HarvestService harvestService;
+    private OrderService orderService;
     private static final Logger logger = LoggerFactory.getLogger(FarmerController.class);
     
     @Autowired
-    public FarmerController(FarmerService theFarmerService, HarvestService theHarvestService){
+    public FarmerController(FarmerService theFarmerService, HarvestService theHarvestService, OrderService theOrderService){
         this.farmerService = theFarmerService;
         this.harvestService = theHarvestService;
+        this.orderService = theOrderService;
     }
 
     @GetMapping("/{farmerId}")
@@ -70,6 +73,12 @@ public class FarmerController {
     @DeleteMapping("/{farmerId}/harvest/{harvestId}")
     public ResponseEntity<?> deleteFarmerHarvest(@PathVariable Long farmerId, @PathVariable Long harvestId){
         return farmerService.deleteHarvest(farmerId, harvestId);
+    }
+
+    @GetMapping("/{farmerId}/order")
+    public ResponseEntity<?> getFarmerOrders(@PathVariable long farmerId){
+        // return ResponseEntity.ok().body("Yo");
+        return orderService.getFarmerOrders(farmerId);
     }
 }
 

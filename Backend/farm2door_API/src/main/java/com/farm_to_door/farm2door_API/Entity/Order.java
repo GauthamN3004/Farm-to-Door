@@ -1,8 +1,10 @@
 package com.farm_to_door.farm2door_API.Entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,7 +14,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import com.farm_to_door.farm2door_API.Entity.OrderStatus;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "orders")
@@ -27,7 +33,9 @@ public class Order {
     @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
     private Customer customer;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @JsonIgnoreProperties("order")
     private List<OrderItem> orderItems;
 
     @Column(name = "order_date", nullable = false)
@@ -39,21 +47,24 @@ public class Order {
     @Column(name = "payment_mode", length = 100)
     private String paymentMode;
 
-    @Column(name = "order_status", length = 100)
-    private String orderStatus;
-
+    // @ManyToOne
+    // @JoinColumn(name = "order_status", referencedColumnName = "status_id")
+    // private OrderStatus orderStatus;
+    
     // Constructors
 
     public Order() {
         // Default constructor
     }
 
-    public Order(Customer customer, Date orderDate, Integer totalPrice, String paymentMode, String orderStatus) {
+    public Order(Customer customer, Date orderDate, Integer totalPrice, String paymentMode
+        // , OrderStatus orderStatus
+    ) {
         this.customer = customer;
         this.orderDate = orderDate;
         this.totalPrice = totalPrice;
         this.paymentMode = paymentMode;
-        this.orderStatus = orderStatus;
+        // this.orderStatus = orderStatus;
     }
 
     // Getters and Setters
@@ -98,13 +109,13 @@ public class Order {
         this.paymentMode = paymentMode;
     }
 
-    public String getOrderStatus() {
-        return orderStatus;
-    }
+    // public OrderStatus getOrderStatus() {
+    //     return orderStatus;
+    // }
 
-    public void setOrderStatus(String orderStatus) {
-        this.orderStatus = orderStatus;
-    }
+    // public void setOrderStatus(OrderStatus orderStatus) {
+    //     this.orderStatus = orderStatus;
+    // }
 
     @Override
     public String toString() {
@@ -114,7 +125,7 @@ public class Order {
                 ", orderDate=" + orderDate +
                 ", totalPrice=" + totalPrice +
                 ", paymentMode='" + paymentMode + '\'' +
-                ", orderStatus='" + orderStatus + '\'' +
+                // ", orderStatus='" + orderStatus + '\'' +
                 '}';
     }
 }

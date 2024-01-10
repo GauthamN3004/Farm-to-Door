@@ -103,13 +103,12 @@ function AddHarvest() {
 
     return (
         <Layout>
-            <div class="container">
-                <h3>DASHBOARD</h3>
-                <div class="row">
-                    <div class="col-sm-3">
+            <div className="container">
+                <div className="row">
+                    <div className="col-sm-3">
                         <FarmerPanel activeTab={"add-harvest"}/>
                     </div>
-                    <div class="col-sm-9">
+                    <div className="col-sm-9">
                         <div className="Form">
                             <h2>ADD HARVEST</h2>
                             <form onSubmit={handleSubmit} method="POST">

@@ -13,7 +13,7 @@
     padding: 3px;
 }
 
-a{
+.card-body a{
     color: rgb(41, 132, 144);
     text-decoration: underline;
 }

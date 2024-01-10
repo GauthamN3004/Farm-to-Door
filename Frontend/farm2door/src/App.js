@@ -14,6 +14,8 @@ import MyHarvest from './Pages/User/Farmer/MyHarvest/MyHarvest';
 import AddHarvest from './Pages/User/Farmer/AddHarvest/AddHarvest';
 import Shop from './Pages/User/Customer/Shop/Shop';
 import Cart from './Pages/User/Customer/Cart/Cart';
+import Orders from './Pages/User/Customer/Orders/Orders';
+import FarmerOrders from './Pages/User/Farmer/MyOrders/FarmerOrders';
 
 function App() {
   return (
@@ -29,10 +31,12 @@ function App() {
           <Route path="/farmer/" element={<Outlet />} >
               <Route path="my-harvest" element={<MyHarvest />}/>
               <Route path="add-harvest" element={<AddHarvest />} />
+              <Route path="orders" element={<FarmerOrders />} />
           </Route>
           <Route path="/customer/" element={<Outlet />} >
               <Route path="shop" element={<Shop />}/>
               <Route path="cart" element={<Cart />}/>
+              <Route path="my-orders" element={<Orders/>}/>
           </Route>
           {/* </Route> */}
           <Route path="*" element={<PageNotFound />} />

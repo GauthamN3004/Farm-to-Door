@@ -5,11 +5,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import CustomerPanel from "../../../../Component/Layout/CustomerPanel/CustomerPanel";
 import CartCard from "../../../../Component/CartCard/CartCard";
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
     const {isLoggedIn, userData} = useAuth();
     const [loading, setLoading] = useState(false);
     const [cartItems, setCartItems] = useState([]);
+    const navigate = useNavigate();
 
     const authHeader = {
         username: userData.username,
@@ -40,6 +42,22 @@ function Cart() {
         }
     }
     
+    const handlePlaceOrder = async () => {
+        try {
+            console.log(authHeader);
+            const response = await axios.post(`http://localhost:8080/api/customer/${userData.userId}/order`, null, {auth: authHeader});
+            if (response.status === 200) {
+                toast.success("Order Placed Successfully!");
+                setTimeout(() => {
+                    navigate("/customer/shop");
+                }, 10);
+            }
+        } catch (error){
+            console.log(error);
+            toast.error("Could not place order!");
+        }
+    }
+
     useEffect(() => {
         fetchCart();
     }, [isLoggedIn, userData]);
@@ -68,12 +86,13 @@ function Cart() {
                             ) : (
                                 <div className="loaddiv">
                                 {loading ? (
-                                    <button className="btn btn-success" type="button" disabled>
-                                    <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                    &nbsp; LOADING...
-                                    </button>
+                                    <div className="d-flex justify-content-center">
+                                        <div className="spinner-border" role="status">
+                                            <span className="sr-only"></span>
+                                        </div>
+                                    </div>
                                 ) : (
-                                    <button className="btn btn-success">PLACE ORDER</button>
+                                    <button className="btn btn-success" onClick={handlePlaceOrder}>PLACE ORDER</button>
                                 )}
                                 </div>
                             )

@@ -15,16 +15,16 @@ function Dashboard() {
     
     return (
         <Layout>
-            <div class="container">
+            <div className="container">
                 <h3>DASHBOARD</h3>
-                <div class="row">
-                    <div class="col-sm-3">
+                <div className="row">
+                    <div className="col-sm-3">
                         <FarmerPanel />
                     </div>
-                    <div class="col-sm-5">
+                    <div className="col-sm-5">
                     One of three columns
                     </div>
-                    <div class="col-sm-4">
+                    <div className="col-sm-4">
                     One of three columns
                     </div>
                 </div>

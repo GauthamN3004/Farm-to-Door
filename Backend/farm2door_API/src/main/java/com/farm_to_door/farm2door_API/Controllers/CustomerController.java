@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.farm_to_door.farm2door_API.DTO.CartDTO;
 import com.farm_to_door.farm2door_API.Service.CustomerService;
 import com.farm_to_door.farm2door_API.Service.HarvestService;
+import com.farm_to_door.farm2door_API.Service.OrderService;
 
 @RestController
 @RequestMapping("/api/customer")
@@ -22,11 +23,13 @@ import com.farm_to_door.farm2door_API.Service.HarvestService;
 public class CustomerController {
     private CustomerService customerService;
     private HarvestService harvestService;
+    private OrderService orderService;
 
     @Autowired
-    public CustomerController(CustomerService theCustomerService, HarvestService theHarvestService){
+    public CustomerController(CustomerService theCustomerService, HarvestService theHarvestService, OrderService theOrderService){
         this.customerService = theCustomerService;
         this.harvestService = theHarvestService;
+        this.orderService = theOrderService;
     }
 
     @GetMapping("/{customerId}")
@@ -57,10 +60,15 @@ public class CustomerController {
     public ResponseEntity<?> deleteHarvestInCart(@PathVariable long customerId, @PathVariable long cartItemId){        
         return customerService.deleteItemInCart(cartItemId);
     }
-
+    
     @PostMapping("/{customerId}/order")
     public ResponseEntity<?> placeOrder(@PathVariable long customerId){
-        return null;
+        return orderService.placeOrder(customerId);
+    }
 
+    @GetMapping("/{customerId}/order")
+    public ResponseEntity<?> getCustomerOrders(@PathVariable long customerId){
+        // return ResponseEntity.ok("Controller");
+        return orderService.getCustomerOrders(customerId);
     }
 }

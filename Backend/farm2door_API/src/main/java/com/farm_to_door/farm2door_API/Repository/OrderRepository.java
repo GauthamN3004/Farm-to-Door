@@ -1,5 +1,6 @@
 package com.farm_to_door.farm2door_API.Repository;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,19 +20,21 @@ public class OrderRepository implements OrderDAO {
 
     private EntityManager entityManager;
     private CartRepository cartRepository;
+    private OrderStatusRepository orderStatusRepository;
 
-    public OrderRepository(EntityManager theEntityManager, CartRepository theCartRepository){
+    public OrderRepository(EntityManager theEntityManager, CartRepository theCartRepository, OrderStatusRepository theOrderStatusRepository){
         this.entityManager = theEntityManager;
         this.cartRepository = theCartRepository;
+        this.orderStatusRepository = theOrderStatusRepository;
     }
 
     @Override
-    public void placeOrder(long customerId, String paymentMode) {
+    public void placeOrder(long customerId) {
         Order order = new Order();
         order.setCustomer(entityManager.find(Customer.class, customerId));
         order.setOrderDate(new Date());
-        order.setOrderStatus("Active");
-        order.setPaymentMode(paymentMode);
+        // order.setOrderStatus(orderStatusRepository.getOrderStatusById(1));
+        // order.setPaymentMode(paymentMode);
         List<Cart> cartItems = cartRepository.getCartForCustomer(customerId);
         int total_price = 0;
 
@@ -50,9 +53,9 @@ public class OrderRepository implements OrderDAO {
             orderItem.setHarvest(harvest);
             orderItem.setQuantity(cartItem.getQuantity());
             orderItem.setPrice(cartItem.getQuantity() * harvest.getPricePerQuantity());
+            orderItem.setOrderStatus(orderStatusRepository.getOrderStatusById(1));
 
             entityManager.persist(orderItem);
-
             entityManager.remove(cartItem);
         }
     }
@@ -70,8 +73,17 @@ public class OrderRepository implements OrderDAO {
 
     @Override
     public List<Order> getCustomerOrders(long customerId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCustomerOrders'");
+        String query = "SELECT o FROM Order o WHERE o.customer.customerId = :customerId ORDER BY o.orderId DESC";
+        return entityManager.createQuery(query, Order.class)
+            .setParameter("customerId", customerId)
+            .getResultList();
     }
-    
+
+    @Override
+    public List<OrderItem> getFarmerOrders(long farmerId) {
+        String query = "SELECT o FROM OrderItem o WHERE o.harvest.farmer.farmerId = :farmerId";
+        return entityManager.createQuery(query, OrderItem.class)
+                .setParameter("farmerId", farmerId)
+                .getResultList();
+    }
 }

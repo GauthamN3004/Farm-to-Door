@@ -1,0 +1,23 @@
+.orderInfo {
+    display: flex;
+    justify-content: space-between;
+}
+
+.orderDetail {
+    text-align: center;
+}
+
+.small-heading {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.data {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.order-value {
+    color: green;
+}

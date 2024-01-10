@@ -6,6 +6,7 @@ function CustomerPanel({activeTab}) {
         <ul className="list-group">
         <NavLink to="/customer/shop"> <li className={`list-group-item ${activeTab === "shop" && "myActive"}`}>SHOP</li> </NavLink>
         <NavLink to="/customer/cart"> <li className={`list-group-item ${activeTab === "cart" && "myActive"}`}>CART</li> </NavLink>
+        <NavLink to="/customer/my-orders"> <li className={`list-group-item ${activeTab === "my-orders" && "myActive"}`}>MY ORDERS</li> </NavLink>
         {/* <NavLink to="/user/farmer/add-harvest"> <li className={`list-group-item ${activeTab === "add-harvest" && "myActive"}`}>ADD HARVEST</li> </NavLink> */}
         </ul>
     )

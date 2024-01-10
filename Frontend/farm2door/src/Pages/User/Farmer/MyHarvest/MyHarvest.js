@@ -51,7 +51,6 @@ function MyHarvest() {
     
     // useEffect to fetch harvests when the component mounts
     useEffect(() => {
-        console.log("UseEffect");
         fetchHarvests(page);
     }, [isLoggedIn, userData]);
     
@@ -59,7 +58,6 @@ function MyHarvest() {
     return (
         <Layout>
             <div className="container">
-                <h3>DASHBOARD</h3>
                 <div className="row">
                     <div className="col-sm-3">
                     <FarmerPanel activeTab={"my-harvest"} />
@@ -72,8 +70,8 @@ function MyHarvest() {
                             </div>
                             ))}
                         </div>
-                        <div className="loaddiv">{(loading) ? <button class="btn btn-success" type="button" disabled>
-                                <span class="spinner-border spinner-border-sm " role="status" aria-hidden="true"></span>
+                        <div className="loaddiv">{(loading) ? <button className="btn btn-success" type="button" disabled>
+                                <span className="spinner-border spinner-border-sm " role="status" aria-hidden="true"></span>
                                 &nbsp; LOADING...
                             </button> :
                             <button className="btn btn-success" onClick={handleLoadMore}>LOAD MORE</button>

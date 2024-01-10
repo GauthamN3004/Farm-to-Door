@@ -1,6 +1,8 @@
 package com.farm_to_door.farm2door_API.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,8 +23,9 @@ public class OrderItem {
     private Long lineItemId;
 
     @ManyToOne
-    @JsonIgnore
+    @JsonBackReference
     @JoinColumn(name = "order_id", referencedColumnName = "order_id")
+    @JsonIgnoreProperties("orderItems")
     private Order order;
 
     @ManyToOne
@@ -35,17 +38,22 @@ public class OrderItem {
     @Column(name = "price")
     private Integer price;
 
+    @ManyToOne
+    @JoinColumn(name = "order_status", referencedColumnName = "status_id")
+    private OrderStatus orderStatus;
+
     // Constructors
 
     public OrderItem() {
         // Default constructor
     }
 
-    public OrderItem(Order order, Harvest harvest, Integer quantity, Integer price) {
+    public OrderItem(Order order, Harvest harvest, Integer quantity, Integer price, OrderStatus orderStatus) {
         this.order = order;
         this.harvest = harvest;
         this.quantity = quantity;
         this.price = price;
+        this.orderStatus  = orderStatus;
     }
 
     // Getters and Setters
@@ -90,6 +98,14 @@ public class OrderItem {
         this.price = price;
     }
 
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
     @Override
     public String toString() {
         return "OrderItem{" +
@@ -98,6 +114,7 @@ public class OrderItem {
                 ", harvest=" + harvest +
                 ", quantity=" + quantity +
                 ", price=" + price +
+                ", orderStatus='" + orderStatus + '\'' +
                 '}';
     }
 }

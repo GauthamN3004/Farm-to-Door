@@ -1,7 +1,6 @@
 import Layout from "../../../../Component/Layout/Layout";
 import { useAuth } from "../../../../Context/AuthContext";
 import { toast } from 'react-hot-toast';
-import FarmerPanel from "../../../../Component/Layout/FarmerPanel/FarmerPanel";
 import HarvestCard from "../../../../Component/HarvestCard/HarvestCard";
 import { useEffect, useState } from "react";
 import "./Shop.css"
@@ -45,7 +44,7 @@ function Shop() {
         };
         try{
             const response = await axios.post(`http://localhost:8080/api/customer/${userData.userId}/cart`, data, {auth: authHeader});
-            if(response.status == 200){
+            if(response.status === 200){
                 toast.success("Item Added to Cart.");
                 setHarvests((prevHarvests) => {
                     return prevHarvests.map((harvest) => {
@@ -68,7 +67,6 @@ function Shop() {
     }
     
     useEffect(() => {
-        console.log("UseEffect");
         fetchHarvests(page);
     }, [isLoggedIn, userData]);
 
@@ -87,8 +85,8 @@ function Shop() {
                                 </div>
                             ))}
                         </div>
-                        <div className="loaddiv">{(loading) ? <button class="btn btn-success" type="button" disabled>
-                                <span class="spinner-border spinner-border-sm " role="status" aria-hidden="true"></span>
+                        <div className="loaddiv">{(loading) ? <button className="btn btn-success" type="button" disabled>
+                                <span className="spinner-border spinner-border-sm " role="status" aria-hidden="true"></span>
                                 &nbsp; LOADING...
                             </button> :
                             <button className="btn btn-success" onClick={handleLoadMore}>LOAD MORE</button>
