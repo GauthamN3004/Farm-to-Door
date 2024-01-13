@@ -80,6 +80,12 @@ public class FarmerController {
         // return ResponseEntity.ok().body("Yo");
         return orderService.getFarmerOrders(farmerId);
     }
+
+    @PostMapping("/{farmerId}/update-items-status")
+    public ResponseEntity<?> updateOrderItemsStatus(@RequestParam long orderItemId, @RequestParam int statusId){
+        return orderService.updateOrderStatus(orderItemId, statusId);
+    }
+    
 }
 
 

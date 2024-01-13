@@ -33,11 +33,6 @@ public class Order {
     @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
     private Customer customer;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    @JsonIgnoreProperties("order")
-    private List<OrderItem> orderItems;
-
     @Column(name = "order_date", nullable = false)
     private Date orderDate;
 
@@ -47,9 +42,10 @@ public class Order {
     @Column(name = "payment_mode", length = 100)
     private String paymentMode;
 
-    // @ManyToOne
-    // @JoinColumn(name = "order_status", referencedColumnName = "status_id")
-    // private OrderStatus orderStatus;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @JsonIgnoreProperties("order")
+    private List<OrderItem> orderItems;
     
     // Constructors
 

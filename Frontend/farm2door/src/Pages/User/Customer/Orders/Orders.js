@@ -29,6 +29,17 @@ function Orders() {
         }
     }
 
+    const updateOrderStatus = async (orderItemId, statusId) => {
+        const response = await axios.post(`http://localhost:8080/api/customer/${userData.userId}/update-items-status?orderItemId=${orderItemId}&statusId=${statusId}`,null, {auth: authHeader});
+        if(response.status == 200){
+            toast.success("Order Status Updated Successfully");
+            fetchOrders();
+        }
+        else {
+            toast.error("Could not update order status");
+        }
+    }
+
     useEffect(() => {
         fetchOrders();
     }, [])
@@ -50,7 +61,7 @@ function Orders() {
                                         <span className="sr-only"></span>
                                     </div>
                                 </div>
-                            </> : (orders.map((order) => ( <CustomerOrderCard key={order.id} orderData={order} /> )))
+                            </> : (orders.map((order) => ( <CustomerOrderCard key={order.id} orderData={order} updateOrderStatus={updateOrderStatus}/> )))
                         }
                     </div>
                 </div>

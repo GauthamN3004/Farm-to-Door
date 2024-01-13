@@ -23,7 +23,7 @@ public class OrderItem {
     private Long lineItemId;
 
     @ManyToOne
-    @JsonBackReference
+    // @JsonBackReference
     @JoinColumn(name = "order_id", referencedColumnName = "order_id")
     @JsonIgnoreProperties("orderItems")
     private Order order;

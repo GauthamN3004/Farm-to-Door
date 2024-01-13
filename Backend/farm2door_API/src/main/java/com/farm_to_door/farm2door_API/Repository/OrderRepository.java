@@ -12,6 +12,7 @@ import com.farm_to_door.farm2door_API.Entity.Customer;
 import com.farm_to_door.farm2door_API.Entity.Harvest;
 import com.farm_to_door.farm2door_API.Entity.Order;
 import com.farm_to_door.farm2door_API.Entity.OrderItem;
+import com.farm_to_door.farm2door_API.Entity.OrderStatus;
 
 import jakarta.persistence.EntityManager;
 
@@ -81,9 +82,14 @@ public class OrderRepository implements OrderDAO {
 
     @Override
     public List<OrderItem> getFarmerOrders(long farmerId) {
-        String query = "SELECT o FROM OrderItem o WHERE o.harvest.farmer.farmerId = :farmerId";
-        return entityManager.createQuery(query, OrderItem.class)
+        String query = "SELECT o FROM OrderItem o WHERE o.harvest.farmer.farmerId = :farmerId ORDER BY o.lineItemId DESC";
+        List<OrderItem> result = entityManager.createQuery(query, OrderItem.class)
                 .setParameter("farmerId", farmerId)
                 .getResultList();
+        return result;
+    }
+
+    public void updateOrderStatus(Order order){
+        entityManager.merge(order);
     }
 }

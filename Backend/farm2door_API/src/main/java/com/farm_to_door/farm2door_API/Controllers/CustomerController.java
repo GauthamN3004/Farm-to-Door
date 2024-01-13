@@ -71,4 +71,9 @@ public class CustomerController {
         // return ResponseEntity.ok("Controller");
         return orderService.getCustomerOrders(customerId);
     }
+
+    @PostMapping("/{customerId}/update-items-status")
+    public ResponseEntity<?> updateOrderItemsStatus(@RequestParam long orderItemId, @RequestParam int statusId){
+        return orderService.updateOrderStatus(orderItemId, statusId);
+    }
 }

@@ -1,10 +1,12 @@
 import "./CustomerOrderCard.css"
 import CustomerOrderItemCard from "./CustomerOrderItemCard";
 
-function CustomerOrderCard({orderData}){
+function CustomerOrderCard({orderData, updateOrderStatus}){
     const originalDate = new Date(orderData.orderDate);
     originalDate.setDate(originalDate.getDate() + 1);
     const formattedDateString = originalDate.toISOString().split('T')[0];
+
+    console.log(orderData);
 
     return (
         <div className="card">
@@ -21,7 +23,7 @@ function CustomerOrderCard({orderData}){
             <ul className="list-group list-group-flush">
                 {orderData.orderItems.map((item) => 
                     <li className="list-group-item">
-                        <CustomerOrderItemCard orderItemData = {item} />
+                        <CustomerOrderItemCard orderItemData = {item} updateOrderStatus = {updateOrderStatus}/>
                     </li>
                 )}
             </ul>
