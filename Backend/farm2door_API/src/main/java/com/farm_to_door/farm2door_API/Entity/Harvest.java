@@ -54,6 +54,10 @@ public class Harvest {
     @Column(name = "active")
     private Boolean active;
 
+    @ManyToOne
+    @JoinColumn(name = "category", referencedColumnName = "category_id")
+    private HarvestCategory harvestCategory;
+
     // Default constructor
     public Harvest() {
     }
@@ -61,7 +65,7 @@ public class Harvest {
     // Parameterized constructor
     public Harvest(String cropName, Farmer farmer, Date harvestDate, Date expiryDate,
                    Long quantity, String units, Integer pricePerQuantity,
-                   Integer smallestUnitSize, String imageUrl, Boolean active) {
+                   Integer smallestUnitSize, String imageUrl, Boolean active, HarvestCategory harvestCategory) {
         this.cropName = cropName;
         this.farmer = farmer;
         this.harvestDate = harvestDate;
@@ -72,6 +76,7 @@ public class Harvest {
         this.smallestUnitSize = smallestUnitSize;
         this.imageUrl = imageUrl;
         this.active = active;
+        this.harvestCategory = harvestCategory;
     }
 
     // Getters and setters
@@ -162,6 +167,14 @@ public class Harvest {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public HarvestCategory getHarvestCategory(){
+        return harvestCategory;
+    }
+
+    public void setHarvestCategory(HarvestCategory harvestCategory){
+        this.harvestCategory = harvestCategory;
     }
 
     @Override

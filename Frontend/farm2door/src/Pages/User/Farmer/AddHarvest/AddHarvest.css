@@ -22,6 +22,11 @@ form button {
     width: 100%;
 }
 
+.select {
+    width: 100%;
+    height: 40px;
+}
+
 
 @media (max-width: 800px) {
     .Form {

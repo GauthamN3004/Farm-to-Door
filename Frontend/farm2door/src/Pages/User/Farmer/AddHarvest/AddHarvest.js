@@ -2,15 +2,16 @@ import Layout from "../../../../Component/Layout/Layout";
 import { useAuth } from "../../../../Context/AuthContext";
 import { toast } from 'react-hot-toast';
 import FarmerPanel from "../../../../Component/Layout/FarmerPanel/FarmerPanel";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./AddHarvest.css"
+import { Select } from 'antd';
 
 
 
 function AddHarvest() {
-    const {isLoggedIn, userData, login, logout} = useAuth();
+    const {userData} = useAuth();
     const [cropName, setCropName] = useState('');
     const [harvestDate, setHarvestDate] = useState('');
     const [expiryDate, setExpiryDate] = useState('');
@@ -20,9 +21,27 @@ function AddHarvest() {
     const [smallestUnitSize, setSmallestUnitSize] = useState('');
     const [file, setFile] = useState(null);
     const [imageUrl, setImageUrl] = useState(null);
+    const [harvestCategory, setHarvestCategory] = useState(null);
+    const [allCategories, setAllCategories] = useState([]);
     const navigate = useNavigate();
 
-    // const basicAuthHeader = `Basic ${btoa(`${yourUsername}:${yourPassword}`)}`;
+    const getHarvestCategories = async () => {
+        const response = await axios.get('http://localhost:8080/api/farmer/harvest-categories');
+        if(response.status == 200){
+            setAllCategories(response.data.map((item) => {
+                return {
+                    value: item.categoryId,
+                    label: item.categoryName
+                }
+            }));
+        }
+    };
+
+    useEffect(() => {
+        getHarvestCategories();
+    }, []);
+
+
     const uploadFile = async () => {
         try {
             const formData = new FormData();
@@ -62,6 +81,7 @@ function AddHarvest() {
                     "units": unit,
                     "pricePerQuantity": price,
                     "smallestUnitSize": smallestUnitSize,
+                    "categoryId": harvestCategory,
                     "imageUrl": 'https://farm-to-door.s3.ap-south-1.amazonaws.com/' + imageUrl
                 }
 
@@ -113,12 +133,18 @@ function AddHarvest() {
                             <h2>ADD HARVEST</h2>
                             <form onSubmit={handleSubmit} method="POST">
                                 <div className="form-group">
-                                    <label htmlFor="cropName"><b>CROP NAME</b></label>
-                                    <input type="text" className="form-control" name="cropName" value={cropName} placeholder="Enter Crop Name" required onChange={(e) => setCropName(e.target.value)} />
+                                    <label htmlFor="cropName"><b>PRODUCT NAME</b></label>
+                                    <input type="text" className="form-control" name="cropName" value={cropName} placeholder="Enter Product Name" required onChange={(e) => setCropName(e.target.value)} />
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="harvestDate"><b>HARVEST DATE</b></label>
-                                    <input type="date" className="form-control" name="harvestDate" value={harvestDate} placeholder="Enter Harvest Date" required onChange={(e) => setHarvestDate(e.target.value)} />
+                                    <label htmlFor="cropName"><b>CATEGORY</b></label>
+                                    <Select defaultValue={0} className="select" onChange={(value) => setHarvestCategory(value)}
+                                        options={allCategories}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="harvestDate"><b>PRODUCE DATE</b></label>
+                                    <input type="date" className="form-control" name="harvestDate" value={harvestDate} placeholder="Enter Product's Produce Date" required onChange={(e) => setHarvestDate(e.target.value)} />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="expiryDate"><b>EXPIRY DATE</b></label>
@@ -134,6 +160,7 @@ function AddHarvest() {
                                         <option value="">Select Unit</option>
                                         <option value="Kilograms (kg)">Kilograms (kg)</option>
                                         <option value="Grams (g)">Grams (g)</option>
+                                        <option value="Liters (l)">Liters (l)</option>
                                         <option value="Units">Units</option>
                                     </select>
                                 </div>

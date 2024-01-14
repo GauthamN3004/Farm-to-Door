@@ -85,6 +85,12 @@ public class FarmerController {
     public ResponseEntity<?> updateOrderItemsStatus(@RequestParam long orderItemId, @RequestParam int statusId){
         return orderService.updateOrderStatus(orderItemId, statusId);
     }
+
+    @GetMapping("/harvest-categories")
+    public ResponseEntity<?> getHarvestCategories(){
+        // return ResponseEntity.ok().body("Yo");
+        return harvestService.getAllCategories();
+    }
     
 }
 

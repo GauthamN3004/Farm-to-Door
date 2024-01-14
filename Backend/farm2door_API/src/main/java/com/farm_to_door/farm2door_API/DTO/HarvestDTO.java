@@ -3,15 +3,16 @@ package com.farm_to_door.farm2door_API.DTO;
 import java.util.Date;
 
 public class HarvestDTO {
-    private Long harvestId;
+    private long harvestId;
     private String cropName;
-    private Long farmerId;
+    private long farmerId;
     private Date harvestDate;
     private Date expiryDate;
-    private Long quantity;
+    private long quantity;
     private String units;
-    private Integer pricePerQuantity;
-    private Integer smallestUnitSize;
+    private int pricePerQuantity;
+    private int smallestUnitSize;
+    private int categoryId;
     private String imageUrl;
     private boolean active;
 
@@ -20,8 +21,8 @@ public class HarvestDTO {
     public HarvestDTO() {
     }
 
-    public HarvestDTO(Long harvestId, String cropName, Long farmerId, Date harvestDate, Date expiryDate, Long quantity,
-                      String units, Integer pricePerQuantity, Integer smallestUnitSize, String imageUrl, boolean active) {
+    public HarvestDTO(long harvestId, String cropName, long farmerId, Date harvestDate, Date expiryDate, long quantity,
+                      String units, int pricePerQuantity, int smallestUnitSize, int categoryId, String imageUrl, boolean active) {
         this.harvestId = harvestId;
         this.cropName = cropName;
         this.farmerId = farmerId;
@@ -31,13 +32,14 @@ public class HarvestDTO {
         this.units = units;
         this.pricePerQuantity = pricePerQuantity;
         this.smallestUnitSize = smallestUnitSize;
+        this.categoryId = categoryId;
         this.imageUrl = imageUrl;
         this.active = active;
     }
 
     // Getters
 
-    public Long getHarvestId() {
+    public long getHarvestId() {
         return harvestId;
     }
 
@@ -45,7 +47,7 @@ public class HarvestDTO {
         return cropName;
     }
 
-    public Long getFarmerId() {
+    public long getFarmerId() {
         return farmerId;
     }
 
@@ -57,7 +59,7 @@ public class HarvestDTO {
         return expiryDate;
     }
 
-    public Long getQuantity() {
+    public long getQuantity() {
         return quantity;
     }
 
@@ -65,12 +67,16 @@ public class HarvestDTO {
         return units;
     }
 
-    public Integer getPricePerQuantity() {
+    public int getPricePerQuantity() {
         return pricePerQuantity;
     }
 
-    public Integer getSmallestUnitSize() {
+    public int getSmallestUnitSize() {
         return smallestUnitSize;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
     }
 
     public String getImageUrl() {
@@ -83,7 +89,7 @@ public class HarvestDTO {
 
     // Setters
 
-    public void setHarvestId(Long harvestId) {
+    public void setHarvestId(long harvestId) {
         this.harvestId = harvestId;
     }
 
@@ -91,7 +97,7 @@ public class HarvestDTO {
         this.cropName = cropName;
     }
 
-    public void setFarmerId(Long farmerId) {
+    public void setFarmerId(long farmerId) {
         this.farmerId = farmerId;
     }
 
@@ -103,7 +109,7 @@ public class HarvestDTO {
         this.expiryDate = expiryDate;
     }
 
-    public void setQuantity(Long quantity) {
+    public void setQuantity(long quantity) {
         this.quantity = quantity;
     }
 
@@ -111,12 +117,16 @@ public class HarvestDTO {
         this.units = units;
     }
 
-    public void setPricePerQuantity(Integer pricePerQuantity) {
+    public void setPricePerQuantity(int pricePerQuantity) {
         this.pricePerQuantity = pricePerQuantity;
     }
 
-    public void setSmallestUnitSize(Integer smallestUnitSize) {
+    public void setSmallestUnitSize(int smallestUnitSize) {
         this.smallestUnitSize = smallestUnitSize;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public void setImageUrl(String imageUrl) {

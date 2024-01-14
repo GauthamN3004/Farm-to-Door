@@ -5,15 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.farm_to_door.farm2door_API.DTO.CartDTO;
 import com.farm_to_door.farm2door_API.Entity.Cart;
 import com.farm_to_door.farm2door_API.Entity.Customer;
-import com.farm_to_door.farm2door_API.Entity.Farmer;
 import com.farm_to_door.farm2door_API.Repository.CartRepository;
 import com.farm_to_door.farm2door_API.Repository.CustomerRepository;
-import com.farm_to_door.farm2door_API.Repository.OrderRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -22,13 +19,11 @@ public class CustomerService {
 
     private CustomerRepository customerRepository;
     private CartRepository cartRepository;
-    private OrderRepository orderRepository;
 
     @Autowired
-    public CustomerService(CustomerRepository theCustomerRepository, CartRepository theCartRepository, OrderRepository theOrderRepository){
+    public CustomerService(CustomerRepository theCustomerRepository, CartRepository theCartRepository){
         this.customerRepository = theCustomerRepository;
         this.cartRepository = theCartRepository;
-        this.orderRepository = theOrderRepository;
     }
 
     public ResponseEntity<?> getCustomerInfo(long customerId){

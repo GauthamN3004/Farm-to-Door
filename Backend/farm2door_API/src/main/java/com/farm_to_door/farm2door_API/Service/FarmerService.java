@@ -1,14 +1,14 @@
 package com.farm_to_door.farm2door_API.Service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.farm_to_door.farm2door_API.DTO.HarvestDTO;
 import com.farm_to_door.farm2door_API.Entity.Farmer;
 import com.farm_to_door.farm2door_API.Entity.Harvest;
+import com.farm_to_door.farm2door_API.Entity.HarvestCategory;
 import com.farm_to_door.farm2door_API.Repository.FarmerRepository;
+import com.farm_to_door.farm2door_API.Repository.HarvestCategoryRepository;
 import com.farm_to_door.farm2door_API.Repository.HarvestRepository;
 
 import jakarta.transaction.Transactional;
@@ -18,11 +18,13 @@ public class FarmerService {
     
     private FarmerRepository farmerRepository;
     private HarvestRepository harvestRepository;
+    private HarvestCategoryRepository harvestCategoryRepository;
 
     @Autowired
-    public FarmerService(FarmerRepository theFarmerRepository, HarvestRepository theHarvestRepository){
+    public FarmerService(FarmerRepository theFarmerRepository, HarvestRepository theHarvestRepository, HarvestCategoryRepository theHarvestCategoryRepository){
         this.farmerRepository = theFarmerRepository;
         this.harvestRepository = theHarvestRepository;
+        this.harvestCategoryRepository = theHarvestCategoryRepository;
     }
 
     public ResponseEntity<?> getFarmerInfo(long farmerId){
@@ -54,10 +56,16 @@ public class FarmerService {
         if(farmer == null){
             return ResponseEntity.badRequest().body("Farmer not found. ID: " + farmerId);
         }
+
+        HarvestCategory harvestCategory = harvestCategoryRepository.getCategoryById(harvestDTO.getCategoryId());
+        if(harvestCategory == null){
+            return ResponseEntity.badRequest().body("Category not found. ID: " + harvestDTO.getCategoryId());
+        }
         
         Harvest harvest = new Harvest();
         harvest.setCropName(harvestDTO.getCropName());
         harvest.setFarmer(farmer);
+        harvest.setHarvestCategory(harvestCategory);
         harvest.setHarvestDate(harvestDTO.getHarvestDate());
         harvest.setExpiryDate(harvestDTO.getExpiryDate());
         harvest.setQuantity(harvestDTO.getQuantity());
