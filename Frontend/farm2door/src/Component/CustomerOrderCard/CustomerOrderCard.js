@@ -6,8 +6,6 @@ function CustomerOrderCard({orderData, updateOrderStatus}){
     originalDate.setDate(originalDate.getDate() + 1);
     const formattedDateString = originalDate.toISOString().split('T')[0];
 
-    console.log(orderData);
-
     return (
         <div className="card">
             <div className="card-header orderInfo">

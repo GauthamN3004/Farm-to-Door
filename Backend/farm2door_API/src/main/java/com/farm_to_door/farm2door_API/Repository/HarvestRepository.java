@@ -50,12 +50,20 @@ public class HarvestRepository implements HarvestDAO{
     }
 
     @Override
-    public List<Harvest> getAllHarvestsPaginated(int page, int pageSize) {
+    public List<Harvest> getAllHarvestsPaginated(int page, int pageSize, String category, int minPrice, int maxPrice) {
         int firstResult = (page - 1) * pageSize;
+        String qlString = "SELECT h FROM Harvest h WHERE h.active = true AND h.expiryDate > CURRENT_DATE AND h.pricePerQuantity >= "+ minPrice + " AND h.pricePerQuantity <= " + maxPrice + " ";
+        if(category != null && category != "") {
+            qlString += "AND h.harvestCategory.categoryId IN (" + category + ") ";
+        }
+        qlString += "ORDER BY h.harvestId DESC";
+
+        // System.out.println(qlString);   
         TypedQuery<Harvest> query = entityManager.createQuery(
-                "SELECT h FROM Harvest h WHERE h.active = true and h.expiryDate > CURRENT_DATE ORDER BY h.harvestId DESC",
+                qlString,
                 Harvest.class
         );
+
         query.setFirstResult(firstResult);
         query.setMaxResults(pageSize);
         return query.getResultList();

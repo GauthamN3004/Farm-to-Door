@@ -24,7 +24,7 @@ function UserHeader() {
         <>
             <nav className="navBar">
                 <div className="brandLogo">
-                <Link to="/farmer/my-harvest">
+                <Link to={(userData.role == 'ROLE_FARMER') ? "/farmer/my-harvest" : "/customer/shop"}>
                     <img src={imageLogo} height={80} alt="Logo"></img>
                 </Link>
                 </div>

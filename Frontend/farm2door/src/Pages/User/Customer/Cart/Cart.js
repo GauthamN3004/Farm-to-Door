@@ -44,7 +44,6 @@ function Cart() {
     
     const handlePlaceOrder = async () => {
         try {
-            console.log(authHeader);
             const response = await axios.post(`http://localhost:8080/api/customer/${userData.userId}/order`, null, {auth: authHeader});
             if (response.status === 200) {
                 toast.success("Order Placed Successfully!");
@@ -53,7 +52,6 @@ function Cart() {
                 }, 10);
             }
         } catch (error){
-            console.log(error);
             toast.error("Could not place order!");
         }
     }

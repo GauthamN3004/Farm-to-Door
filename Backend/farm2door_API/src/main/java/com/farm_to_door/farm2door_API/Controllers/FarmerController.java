@@ -77,7 +77,6 @@ public class FarmerController {
 
     @GetMapping("/{farmerId}/order")
     public ResponseEntity<?> getFarmerOrders(@PathVariable long farmerId){
-        // return ResponseEntity.ok().body("Yo");
         return orderService.getFarmerOrders(farmerId);
     }
 
@@ -88,7 +87,6 @@ public class FarmerController {
 
     @GetMapping("/harvest-categories")
     public ResponseEntity<?> getHarvestCategories(){
-        // return ResponseEntity.ok().body("Yo");
         return harvestService.getAllCategories();
     }
     

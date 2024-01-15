@@ -45,9 +45,9 @@ public class HarvestService {
         return ResponseEntity.ok(farmerHarvest);
     }
 
-    public ResponseEntity<?> getAllHarvestsPaginated(int page, int pageSize){
+    public ResponseEntity<?> getAllHarvestsPaginated(int page, int pageSize, String category, int minPrice, int maxPrice){
         try{
-            List<Harvest> farmerHarvestPaginated = harvestRepository.getAllHarvestsPaginated(page, pageSize);
+            List<Harvest> farmerHarvestPaginated = harvestRepository.getAllHarvestsPaginated(page, pageSize, category, minPrice, maxPrice);
             return ResponseEntity.ok(farmerHarvestPaginated);
         } catch (Exception e){
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());

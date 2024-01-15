@@ -41,9 +41,12 @@ public class CustomerController {
     public ResponseEntity<?> getAllHarvest(
         @PathVariable long customerId,
         @RequestParam(name = "page", required = false) Integer page,
-        @RequestParam(name = "pageSize", required = false) Integer pageSize
+        @RequestParam(name = "pageSize", required = false) Integer pageSize,
+        @RequestParam(name = "category", required = false) String category,
+        @RequestParam(name = "minPrice", required = false) Integer minPrice,
+        @RequestParam(name = "maxPrice", required = false) Integer maxPrice
     ){
-        return harvestService.getAllHarvestsPaginated(page, pageSize);
+        return harvestService.getAllHarvestsPaginated(page, pageSize, category, minPrice, maxPrice);
     }
 
     @GetMapping("/{customerId}/cart")
